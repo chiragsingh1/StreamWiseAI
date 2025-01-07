@@ -22,8 +22,8 @@ model User {
 model Stream {
     id           String       @id @default(cuid())
     userId       String
-    user         User         @relation(fields: [userId], references: [id])
-    youtubeId    String
+    user         User         @relation(fields: [userId], references: [googleId])
+    youtubeId    String       @unique
     title        String?
     status       StreamStatus @default(ACTIVE)
     messages     Message[]
@@ -38,7 +38,7 @@ model Stream {
 model Message {
     id            String   @id @default(cuid())
     streamId      String
-    stream        Stream   @relation(fields: [streamId], references: [id])
+    stream        Stream   @relation(fields: [streamId], references: [youtubeId])
     content       String
     authorName    String
     youtubeId     String   @unique

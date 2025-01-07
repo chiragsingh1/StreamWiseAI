@@ -9,9 +9,10 @@ app.use(cors());
 
 app.use(express.json());
 
-// Routes
 app.use("/api/streams", streamRouter);
 app.use("/api/users", userRouter);
+
+// app.use(errorHandler);
 
 app.get("/", (req, res) => {
     res.json({ message: "Welcome! Stream Wisely ✨🚀" });
