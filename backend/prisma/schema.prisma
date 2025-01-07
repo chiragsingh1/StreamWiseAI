@@ -1,0 +1,57 @@
+// backend/src/models/schema.prisma
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+model User {
+    id        String   @id @default(cuid())
+    email     String   @unique
+    googleId  String   @unique
+    name      String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    streams   Stream[]
+}
+
+model Stream {
+    id           String       @id @default(cuid())
+    userId       String
+    user         User         @relation(fields: [userId], references: [id])
+    youtubeId    String
+    title        String?
+    status       StreamStatus @default(ACTIVE)
+    messages     Message[]
+    createdAt    DateTime     @default(now())
+    updatedAt    DateTime     @updatedAt
+    lastPolledAt DateTime     @default(now())
+
+    @@index([userId])
+    @@index([youtubeId])
+}
+
+model Message {
+    id            String   @id @default(cuid())
+    streamId      String
+    stream        Stream   @relation(fields: [streamId], references: [id])
+    content       String
+    authorName    String
+    youtubeId     String   @unique
+    isOffensive   Boolean  @default(false)
+    offenseReason String?
+    timestamp     DateTime @default(now())
+
+    @@index([streamId])
+    @@index([youtubeId])
+}
+
+enum StreamStatus {
+    ACTIVE
+    INACTIVE
+    ENDED
+}
