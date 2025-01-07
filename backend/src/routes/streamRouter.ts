@@ -1,10 +1,9 @@
-import { PrismaClient } from "@prisma/client";
 import { Router } from "express";
+import { prismaClient } from "../db";
 
 const router = Router();
-const prisma = new PrismaClient();
 
-router.get("/stream", (req, res) => {
+router.get("/", (req, res) => {
     res.json({ message: "Stream route" });
 });
 

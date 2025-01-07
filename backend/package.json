@@ -3,9 +3,9 @@
     "version": "1.0.0",
     "main": "index.js",
     "scripts": {
-        "dev": "ts-node-dev --respawn --transpile-only src/app.ts",
+        "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
         "build": "tsc",
-        "start": "node build/app.js",
+        "start": "node build/index.js",
         "prisma:generate": "prisma generate",
         "prisma:migrate": "prisma migrate dev",
         "prisma:studio": "prisma studio"

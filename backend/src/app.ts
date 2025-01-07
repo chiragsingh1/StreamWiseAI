@@ -13,4 +13,8 @@ app.use(express.json());
 app.use("/api/streams", streamRouter);
 app.use("/api/users", userRouter);
 
+app.get("/", (req, res) => {
+    res.json({ message: "Welcome! Stream Wisely ✨🚀" });
+});
+
 export default app;
