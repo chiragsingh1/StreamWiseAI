@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getGoogleToken } from "@/app/settings/actions";
+import { getGoogleToken } from "@/settings/actions";
 
 export default function Dashboard() {
     const [userDetails, setUserDetails] = useState<string | null>(null);
@@ -9,7 +9,7 @@ export default function Dashboard() {
     const fetchUser = async () => {
         const token = await getGoogleToken();
         if (token) {
-            setUserDetails(token);
+            setUserDetails(JSON.parse(token));
         }
     };
     useEffect(() => {
@@ -18,7 +18,7 @@ export default function Dashboard() {
     return (
         <div>
             <h3>User Details: </h3>
-            <h5>{JSON.stringify(userDetails)}</h5>
+            <h6>{userDetails}</h6>
         </div>
     );
 }
